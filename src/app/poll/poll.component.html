@@ -1,16 +1,14 @@
-<p>poll works!</p>
-
 <div class="card mb-4">
   <div class="poll-image">
-    <img src="https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg">
+    <img [src]="pollImage">
   </div>
   <div class="card-body">
     <p class="card-text text-truncate font-weight-bold">
-      Do you like more cats or dogs?
+      {{question}}
     </p>
     <div class="d-flex justify-content-between">
-      <small class="text-muted">10 votes</small>
-      <small class="text-muted">voted </small>
+      <small class="text-muted">Votes: {{numberOfVotes}}</small>
+      <small *ngIf="voted" class="badge badge-success">voted </small>
     </div>
   </div>
 </div>

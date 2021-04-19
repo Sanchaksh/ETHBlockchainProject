@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NumberValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-poll',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PollComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  question!: string;
+  @Input()
+  votes!: number[];
+  @Input()
+  voted!: boolean;
+  @Input() pollImage: string | undefined;
+
+  numberOfVotes: number | undefined;
+
+  constructor() {
+
+   }
 
   ngOnInit(): void {
+    if(this.votes.length) {
+      this.numberOfVotes = this.votes.reduce((acc, curr) => {
+        return acc += curr
+      })
+    }
   }
 
 }
