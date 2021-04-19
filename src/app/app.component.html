@@ -1,6 +1,12 @@
 <nav class = "navbar navbar-light bg-light">
   <a class="navbar-brand mr-auto">BlockChain Polls</a>
-  <button type="button" class="btn btn-secondary">Create Poll</button>
+  <button
+  type="button"
+  class="btn btn-secondary"
+  (click) = "showForm = !showForm"
+  >
+    Create Poll
+  </button>
 </nav>
 
 <section class="jumbotron bg-light text-center">
@@ -11,7 +17,7 @@
   </p>
 </section>
 
-<app-poll-create> </app-poll-create>
+<app-poll-create *ngIf="showForm"> </app-poll-create>
 
 <div class="d-flex">
 <div class="container poll-list">
