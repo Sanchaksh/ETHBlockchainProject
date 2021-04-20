@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Poll } from './types';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +8,32 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   showForm = false;
+  activePoll!: Poll;
 
-  polls = [{
+  polls: Poll[] = [
+    {
+      id: 1,
     question: 'Do you like dogs or cats?',
-    image: 'https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg',
-    votes: [0,5,7],
+    thumbnail: 'https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg',
+    results: [0,5,7],
+    options: ['Cats', 'Dogs', 'None'],
     voted: true,
-  },{
+  },
+  {
+    id: 2,
     question: 'Best Month for summer holidays?',
-    image: 'https://images.pexels.com/photos/1118448/pexels-photo-1118448.jpeg',
-    votes: [1, 6, 4],
+    thumbnail: 'https://images.pexels.com/photos/1118448/pexels-photo-1118448.jpeg',
+    results: [1, 6, 4],
+    options: ['June', 'July', 'August'],
     voted: false,
-  }];
+  }
+];
+
+  setActivePoll(poll: Poll) {
+    this.activePoll = null as any;
+
+    setTimeout(() => {
+      this.activePoll = poll;
+    }, 100);
+  }
 }

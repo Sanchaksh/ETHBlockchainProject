@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ApexCharts from 'apexcharts'
 
@@ -7,7 +7,7 @@ import ApexCharts from 'apexcharts'
   templateUrl: './poll-vote.component.html',
   styleUrls: ['./poll-vote.component.scss']
 })
-export class PollVoteComponent implements OnInit {
+export class PollVoteComponent implements AfterViewInit {
 
   @Input()  voted: boolean = false;
   @Input()  options: string[] = [];
@@ -21,6 +21,9 @@ export class PollVoteComponent implements OnInit {
       selected: this.fb.control("", [Validators.required]),
     })
    }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
     if(this.voted){
