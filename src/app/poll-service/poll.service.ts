@@ -32,30 +32,30 @@ export class PollService {
 
   createPoll(poll: PollForm) {
     this.web3.executeTransaction(
-      'createPoll',
+      "createPoll",
       poll.question,
       poll.thumbnail || '',
       poll.options.map((opt) => fromAscii(opt))
     );
   }
 
-  private normalizeVoter(voter) {
+  private normalizeVoter(voter: any[][]) {
     return {
       id: voter[0],
       votedIds: voter[1].map((vote) => parseInt(vote)),
     };
   }
 
-  private normalizePoll(pollRaw, voter): Poll {
+  private normalizePoll(pollRaw: string[], voter: { id?: any[]; votedIds: any; }): Poll {
     return {
       id: parseInt(pollRaw[0]),
       question: pollRaw[1],
       thumbnail: pollRaw[2],
-      results: pollRaw[3].map((vote) => parseInt(vote)),
-      options: pollRaw[4].map((opt) => toAscii(opt).replace(/\u0000/g, '')),
+      results: pollRaw[3].map((vote: string) => parseInt(vote)),
+      options: pollRaw[4].map((opt: string) => toAscii(opt)).replace(/\u0000/g, '')),
       voted:
         voter.votedIds.length &&
-        voter.votedIds.find((votedId) => votedId === parseInt(pollRaw[0])) !=
+        voter.votedIds.find((votedId: number) => votedId === parseInt(pollRaw[0])) !=
           undefined,
     };
   }
