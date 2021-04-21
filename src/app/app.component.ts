@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { PollService } from './poll-service/poll.service';
 import { Poll, PollForm, PollVote } from './types';
+import { PollService } from './poll-service/poll.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   showForm = false;
