@@ -12,7 +12,7 @@ declare var window: any;
 export class Web3Service {
   private web3!: Web3;
   private contract!: Contract;
-  private contractAddress = '0x4BC34D55078a2858F3Bd91B209Da46BA01AE9986';
+  private contractAddress = '0x47fD5D323593c7ae21B983cDb26f4B08cE50008A';
 
   constructor(private zone: NgZone) {
     if (window.web3) {
