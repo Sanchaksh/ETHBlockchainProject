@@ -1,37 +1,55 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterViewInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import ApexCharts from 'apexcharts'
+import ApexCharts from 'apexcharts';
+import { PollVote } from '../types';
 
 @Component({
   selector: 'app-poll-vote',
   templateUrl: './poll-vote.component.html',
-  styleUrls: ['./poll-vote.component.scss']
+  styleUrls: ['./poll-vote.component.scss'],
 })
 export class PollVoteComponent implements AfterViewInit {
+  @Input()
+  voted: boolean = false;
+  @Input()
+  options: string[] = [];
+  @Input()
+  results: number[] = [];
+  @Input()
+  question!: string;
+  @Input()
+  id!: number;
 
-  @Input()  voted: boolean = false;
-  @Input()  options: string[] = [];
-  @Input()  results: number[] = [];
-  @Input()  question: string | undefined;
+  @Output() pollVoted: EventEmitter<PollVote> = new EventEmitter();
 
   voteForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.voteForm = this.fb.group({
-      selected: this.fb.control("", [Validators.required]),
-    })
-   }
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
+      selected: this.fb.control('', [Validators.required]),
+    });
   }
 
-  ngOnInit(): void {
-    if(this.voted){
+  ngAfterViewInit() {
+    if (this.voted) {
       this.generateChart();
-   }
+    }
   }
+
   submitForm() {
-    console.log(this.voteForm.value);
+    const pollVoted: PollVote = {
+      id: this.id,
+      vote: this.voteForm.get('selected').value,
+    };
+
+    this.pollVoted.emit(pollVoted);
   }
 
   generateChart() {
@@ -59,8 +77,10 @@ export class PollVoteComponent implements AfterViewInit {
       },
     };
 
-    const chart = new ApexCharts(document.getElementById('poll-results'), options);
+    const chart = new ApexCharts(
+      document.getElementById('poll-results'),
+      options
+    );
     chart.render();
   }
-
 }
